@@ -6,6 +6,8 @@ import java.util.Map;
 import org.junit.Before;
 
 import cc.ttcc.retry.common.RetryEntity;
+import cc.ttcc.retry.service.RetryAbstractService;
+import cc.ttcc.retry.service.RetryDataPersistService;
 import cc.ttcc.retry.service.RetryDataPersistTestServiceImpl;
 import cc.ttcc.retry.service.RetryRollBackTestService;
 
@@ -18,13 +20,15 @@ public class MainTest {
 		System.out.println(123);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static void main(String[] args) throws InterruptedException {
 		// 必选服务，用于重试回调，执行具体的重试逻辑，须实现RetryAbstractService服务
-		RetryRollBackTestService retryBackService = new RetryRollBackTestService();
-		// 可选服务，用于数据持久化以便重启恢复，须实现RetryDataPersistService服务
-		RetryDataPersistTestServiceImpl retryDataPersistServiceImpl = new RetryDataPersistTestServiceImpl();
+		RetryAbstractService retryBackService = new RetryRollBackTestService();
 
-		RetryTask retryTask = new RetryTask(retryBackService, retryDataPersistServiceImpl);
+		// 可选服务，用于数据持久化以便重启恢复，须实现RetryDataPersistService服务
+		RetryDataPersistService retryDataPersistService = new RetryDataPersistTestServiceImpl();
+
+		RetryTask retryTask = new RetryTask(retryBackService, retryDataPersistService);
 		// 功能测试
 		normalTest(retryTask);
 		// 性能测试

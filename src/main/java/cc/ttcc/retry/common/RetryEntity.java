@@ -3,6 +3,12 @@ package cc.ttcc.retry.common;
 import java.util.Arrays;
 import java.util.Date;
 
+/**
+ * 重试对象
+ * 
+ * @author wr
+ *
+ */
 public class RetryEntity {
 
 	private static final int[] DEFAULT_INTERVALS = new int[] { 1 * 60, 5 * 60, 10 * 60, 30 * 60, 60 * 60, 2 * 3600,
