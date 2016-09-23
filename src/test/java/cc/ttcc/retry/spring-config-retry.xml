@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd"
+	default-autowire="byName">
+
+	<!-- 回滚重试任务 -->
+	<bean id="retryTask" class="cc.ttcc.retry.RetryTask">
+		<!--必选服务，用于重试回调，执行具体的重试逻辑，须实现RetryAbstractService服务 -->
+		<constructor-arg name="callbackService" ref="rollBackService" />
+		<!--可选服务，用于数据持久化以便重启恢复，须实现RetryDataPersistService服务 -->
+		<constructor-arg name="persistService" ref="persistService" />
+	</bean>
+	<bean id="rollBackService" class="cc.ttcc.retry.service.RetryRollBackTestService" />
+	<bean id="persistService" class="cc.ttcc.retry.service.RetryRedisPersistServiceImpl" />
+
+</beans>
