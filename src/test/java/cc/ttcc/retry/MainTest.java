@@ -39,25 +39,18 @@ public class MainTest {
 
 	public static void normalTest(RetryTask retryTask) throws InterruptedException {
 		Thread.sleep(1000);
-		Map<String, String> params1 = new HashMap<String, String>();
-		params1.put("id", "8888889001043");
-		params1.put("webuserId", "1443");
-		RetryEntity zhifubao = new RetryEntity("优惠券", "rollbackCoupons", JSON.toJSONString(params1), new int[] { 2, 4,
-				6, 8 });
+		RetryEntity zhifubao = new RetryEntity("优惠券", "rollbackCoupons", "coupons");
 		retryTask.add(zhifubao);
 
-		Thread.sleep(1500);
-		Map<String, String> params2 = new HashMap<String, String>();
-		params2.put("id", "8888889001943");
-		params2.put("webuserId", "1443");
-		RetryEntity yue = new RetryEntity("余额", "rollbackBalance", JSON.toJSONString(params2), new int[] { 2, 4, 6, 8 });
+		Thread.sleep(1000);
+		RetryEntity yue = new RetryEntity("余额", "rollbackBalance", null, new int[] { -2, 4, 6, 8 });
 		retryTask.add(yue);
 
-		Thread.sleep(10000);
+		Thread.sleep(1000);
 		Map<String, String> params3 = new HashMap<String, String>();
-		params3.put("id", "8888889001943");
-		params3.put("webuserId", "1443");
-		RetryEntity tttt = new RetryEntity("微信", "rollbackBalance", JSON.toJSONString(params2),
+		params3.put("id", "1234");
+		params3.put("userId", "4321");
+		RetryEntity tttt = new RetryEntity("微信", "rollbackBalance", JSON.toJSONString(params3),
 				new int[] { 2, 4, 6, 8 });
 		retryTask.add(tttt);
 	}
