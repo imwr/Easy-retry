@@ -38,8 +38,12 @@ public class RetryEntity {
 		this.remark = remark;
 		this.method = method;
 		this.params = paramsJson;
-		Arrays.sort(intervals);
-		this.intervals = intervals;
+		if (null != intervals && intervals.length > 0) {
+			Arrays.sort(intervals);
+			this.intervals = intervals;
+		} else {
+			this.intervals = DEFAULT_INTERVALS;
+		}
 	}
 
 	private static String getRandomString(int count) {
